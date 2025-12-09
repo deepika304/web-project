@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-container">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li onclick="showSection('projects')">Projects</li>
+                <li onclick="showSection('clients')">Clients</li>
+                <li onclick="showSection('contacts')">Contact Forms</li>
+                <li onclick="showSection('subscribed')">Subscribed Emails</li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                <h3>Project Management</h3>
+                <form id="projectForm">
+                    <input type="text" placeholder="Project Name" required>
+                    <textarea placeholder="Project Description" required></textarea>
+                    <input type="file" required>
+                    <button type="submit">Add Project</button>
+                </form>
+                <div id="projectList"></div>
+            </section>
+
+            <!-- Clients Section -->
+            <section id="clients" class="section">
+                <h3>Client Management</h3>
+                <form id="clientForm">
+                    <input type="text" placeholder="Client Name" required>
+                    <input type="text" placeholder="Designation" required>
+                    <textarea placeholder="Client Description" required></textarea>
+                    <input type="file" required>
+                    <button type="submit">Add Client</button>
+                </form>
+                <div id="clientList"></div>
+            </section>
+
+            <!-- Contact Form Details -->
+            <section id="contacts" class="section">
+                <h3>Contact Form Responses</h3>
+                <table id="contactTable">
+                    <thead>
+                        <tr>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Mobile</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </section>
+
+            <!-- Subscribed Emails -->
+            <section id="subscribed" class="section">
+                <h3>Subscribed Emails</h3>
+                <ul id="subscribedList"></ul>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.admin-container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 200px;
+    background: #0a3d91;
+    color: #fff;
+    padding: 20px;
+}
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar ul li {
+    padding: 10px 0;
+    cursor: pointer;
+     position: relative;
+    transition: all 0.3s ease;
+}
+.sidebar ul li:hover {
+    background: #1f6bff;
+    padding-left: 15px;
+}
+
+/* ---------- Buttons ---------- */
+form button, .contact-btn {
+    padding: 8px 15px;
+    background: #ff7a00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+form button:hover, .contact-btn:hover {
+    background: #e06500; 
+}
+
+/* ---------- Table Rows ---------- */
+table tbody tr {
+    transition: all 0.3s ease;
+}
+
+table tbody tr:hover {
+    background: #f0f8ff;
+    transform: scale(1.02);
+}
+
+/* ---------- Sections Links ---------- */
+.section a:hover {
+    color: #1f6bff;
+    text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+.section {
+    display: none;
+}
+.section.active {
+    display: block;
+}
+form input, form textarea {
+    display: block;
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 100%;
+    max-width: 400px;
+}
+form button {
+    padding: 8px 15px;
+    background: #ff7a00;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
