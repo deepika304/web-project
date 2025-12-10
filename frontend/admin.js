@@ -1,25 +1,32 @@
-const API = "https://web-projectbackend.onrender.com/api/files";
-const fileList = document.getElementById("fileList");
+// Sidebar navigation
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+}
 
+// Show Projects Section by default
+showSection('projects');
 
-async function loadFiles() {
-try {
-const res = await fetch(API);
-const files = await res.json();
+// Local frontend-only project addition
+const projectForm = document.getElementById('projectForm');
+const projectList = document.getElementById('projectList');
 
+projectForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-fileList.innerHTML = "";
+    const name = projectForm.querySelector('[name="projectName"]').value.trim();
+    const desc = projectForm.querySelector('[name="projectDesc"]').value.trim();
+    const file = projectForm.querySelector('[name="projectFile"]').files[0];
 
+    if (!name || !desc || !file) {
+        alert("Please fill all fields");
+        return;
+    }
 
-files.forEach(f => {
-const div = document.createElement("div");
-div.textContent = `${f.name} | ${f.email} | ${f.city}`;
-fileList.appendChild(div);
+    const item = document.createElement('div');
+    item.className = "project-item";
+    item.textContent = `${name} - ${desc} - (${file.name})`;
+
+    projectList.appendChild(item);
+    projectForm.reset();
 });
-} catch (err) {
-fileList.innerHTML = "Failed to load files";
-}
-}
-
-
-loadFiles();

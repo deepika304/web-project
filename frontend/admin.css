@@ -8,7 +8,6 @@ body {
     height: 100vh;
 }
 
-/* Sidebar */
 .sidebar {
     width: 200px;
     background: #0a3d91;
@@ -33,7 +32,7 @@ body {
     padding-left: 15px;
 }
 
-/* ---------- Buttons ---------- */
+
 form button, .contact-btn {
     padding: 8px 15px;
     background: #ff7a00;
@@ -47,7 +46,7 @@ form button:hover, .contact-btn:hover {
     background: #e06500; 
 }
 
-/* ---------- Table Rows ---------- */
+
 table tbody tr {
     transition: all 0.3s ease;
 }
@@ -57,13 +56,12 @@ table tbody tr:hover {
     transform: scale(1.02);
 }
 
-/* ---------- Sections Links ---------- */
+
 .section a:hover {
     color: #1f6bff;
     text-decoration: underline;
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     padding: 30px;
