@@ -17,6 +17,9 @@ heroForm.addEventListener("submit", async (e) => {
       body: JSON.stringify(data)
     });
 
+    console.log("Response status:", response.status);
+    console.log("Response text:", await response.text());
+
     if (!response.ok) throw new Error("Server error!");
 
     alert("Form submitted successfully!");

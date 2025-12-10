@@ -7,15 +7,15 @@ const dataRoutes = require("./routes/dataRoutes");
 
 const app = express();
 
-// app.use(express.static("../frontend"));
+app.use(express.static("../frontend"));
 
-// app.use("/", dataRoutes);
+app.use("/", dataRoutes);
 
 // CORS FIX
-// const allowedOrigins = [
-//   "http://localhost:8000",
-//   "https://genuine-frangollo-847f04.netlify.app"
-// ];
+const allowedOrigins = [
+  "http://localhost:8000",
+  "https://genuine-frangollo-847f04.netlify.app"
+];
 
 app.use(cors({
   origin: function (origin, callback) {
