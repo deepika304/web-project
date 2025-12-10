@@ -3,13 +3,19 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const dataRoutes = require("./routes/dataRoutes");
+
 const app = express();
 
+// app.use(express.static("../frontend"));
+
+// app.use("/", dataRoutes);
+
 // CORS FIX
-const allowedOrigins = [
-  "http://localhost:8000",
-  "https://genuine-frangollo-847f04.netlify.app"
-];
+// const allowedOrigins = [
+//   "http://localhost:8000",
+//   "https://genuine-frangollo-847f04.netlify.app"
+// ];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -23,8 +29,9 @@ app.use(cors({
 
 app.use(express.json());
 
+app.use(express.static("../frontend"));
+
 // Routes
-const dataRoutes = require("./routes/dataRoutes");
 app.use("/", dataRoutes);
 
 // DB connection
