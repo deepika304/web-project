@@ -38,7 +38,7 @@
   if (heroForm) {
     heroForm.addEventListener("submit", e => { console.log("HERO FORM SUBMITTED"); 
       e.preventDefault();
-      submitForm(heroForm, "http://localhost:5000/api/consultations", 
+      submitForm(heroForm, "https://web-projectbackend.onrender.com/consultations", 
         `Thanks ${heroForm.querySelector('[name="name"]').value}, we will contact you soon!`
       );
     });
@@ -51,7 +51,7 @@
     footerForm.addEventListener("submit", e => {
       e.preventDefault(); 
       submitForm(
-        footerForm, "http://localhost:5000/api/subscribe", 
+        footerForm, "https://web-projectbackend.onrender.com/subscribe", 
         `Thanks for subscribing with ${footerForm.querySelector('[name="email"]').value}!`
       );
     });

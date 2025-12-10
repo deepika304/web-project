@@ -1,40 +1,61 @@
-require("dotenv").config();
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors");
-const path = require("path");
+// Replace this with your actual deployed backend URL
+const BACKEND_URL = "https://web-projectbackend.onrender.com";
 
-const dataRoutes = require("./routes/dataRoutes");
+// Generic function to submit forms
+async function submitForm(form, endpoint, successMsg) {
+  const formData = {};
+  
+  form.querySelectorAll("[name]").forEach(input => {
+    formData[input.name] = input.value.trim();
+  });
 
-const app = express();
+  // Validation
+  for (const key in formData) {
+    if (!formData[key]) {
+      alert(`Please fill in ${key}`);
+      return;
+    }
+  }
 
-// Middleware
-   
-app.use(express.json());
+  try {
+    const res = await fetch(`${BACKEND_URL}${endpoint}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
 
-// Serve uploaded files (VERY IMPORTANT)
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+    if (res.ok) {
+      alert(successMsg);
+      form.reset();
+    } else {
+      const text = await res.text();
+      console.error("Backend error:", text);
+      alert("Submission failed. Try again later.");
+    }
+  } catch (err) {
+    console.error("Connection error:", err);
+    alert("Error connecting to server.");
+  }
+}
 
-// CORS fix for frontend
-app.use(
-  cors({
-    origin: "http://localhost:8000", // your frontend
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
-  })
-);
+// Hero form
+const heroForm = document.querySelector(".hero-form");
+if (heroForm) {
+  heroForm.addEventListener("submit", e => {
+    e.preventDefault();
+    submitForm(heroForm, "/consultations", 
+      `Thanks ${heroForm.querySelector('[name="name"]').value}, we will contact you soon!`
+    );
+  });
+}
 
-// Routes
-app.use("/api", dataRoutes);
-
-// MongoDB Connection
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log("DB Error:", err));
-
-// Start Server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+// Footer subscribe form
+const footerForm = document.querySelector(".footer-form");
+if (footerForm) {
+  footerForm.addEventListener("submit", e => {
+    e.preventDefault();
+    submitForm(footerForm, "/subscribe", 
+      `Thanks for subscribing with ${footerForm.querySelector('[name="email"]').value}!`
+    );
+  });
+}

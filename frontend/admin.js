@@ -7,16 +7,26 @@ function showSection(id) {
 // Show Projects Section by default
 showSection('projects');
 
-// Example: Add Project (local for now)
+// Local frontend-only project addition
 const projectForm = document.getElementById('projectForm');
 const projectList = document.getElementById('projectList');
 
-projectForm.addEventListener('submit', function(e) {
+projectForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const name = projectForm[0].value;
-    const desc = projectForm[1].value;
-    const li = document.createElement('div');
-    li.textContent = `${name} - ${desc}`;
-    projectList.appendChild(li);
+
+    const name = projectForm.querySelector('[name="projectName"]').value.trim();
+    const desc = projectForm.querySelector('[name="projectDesc"]').value.trim();
+    const file = projectForm.querySelector('[name="projectFile"]').files[0];
+
+    if (!name || !desc || !file) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    const item = document.createElement('div');
+    item.className = "project-item";
+    item.textContent = `${name} - ${desc} - (${file.name})`;
+
+    projectList.appendChild(item);
     projectForm.reset();
 });
