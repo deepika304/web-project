@@ -1,61 +1,37 @@
-// Replace this with your actual deployed backend URL
-const BACKEND_URL = "https://web-projectbackend.onrender.com";
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+require("dotenv").config();
 
-// Generic function to submit forms
-async function submitForm(form, endpoint, successMsg) {
-  const formData = {};
-  
-  form.querySelectorAll("[name]").forEach(input => {
-    formData[input.name] = input.value.trim();
-  });
+const app = express();
 
-  // Validation
-  for (const key in formData) {
-    if (!formData[key]) {
-      alert(`Please fill in ${key}`);
-      return;
-    }
-  }
+// CORS FIX
+const allowedOrigins = [
+  "http://localhost:8000",
+  "https://genuine-frangollo-847f04.netlify.app"
+];
 
-  try {
-    const res = await fetch(`${BACKEND_URL}${endpoint}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      alert(successMsg);
-      form.reset();
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      const text = await res.text();
-      console.error("Backend error:", text);
-      alert("Submission failed. Try again later.");
+      callback(new Error("Not allowed by CORS"));
     }
-  } catch (err) {
-    console.error("Connection error:", err);
-    alert("Error connecting to server.");
   }
-}
+}));
 
-// Hero form
-const heroForm = document.querySelector(".hero-form");
-if (heroForm) {
-  heroForm.addEventListener("submit", e => {
-    e.preventDefault();
-    submitForm(heroForm, "/consultations", 
-      `Thanks ${heroForm.querySelector('[name="name"]').value}, we will contact you soon!`
-    );
-  });
-}
+app.use(express.json());
 
-// Footer subscribe form
-const footerForm = document.querySelector(".footer-form");
-if (footerForm) {
-  footerForm.addEventListener("submit", e => {
-    e.preventDefault();
-    submitForm(footerForm, "/subscribe", 
-      `Thanks for subscribing with ${footerForm.querySelector('[name="email"]').value}!`
-    );
-  });
-}
+// Routes
+const dataRoutes = require("./routes/dataRoutes");
+app.use("/", dataRoutes);
+
+// DB connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.error("DB error:", err));
+
+// Server start
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
